@@ -67,13 +67,27 @@ namespace BankTransactions
         // Regra para o valor de saque ser positivo
         public void MakeWithdrawal(decimal amount, DateTime date, string note)
         {
-            if (Balance - amount < minimumBalance)
+            if (amount <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(amount), "O valor da retirada deve ser positivo");
             }
-
+            var overdraftTransaction = CheckWithdrawalLimit(Balance - amount < minimumBalance);
             var withdrawal = new Transaction(-amount, date, note);
             allTransactions.Add(withdrawal);
+            if (overdraftTransaction != null)
+                allTransactions.Add(overdraftTransaction);
+        }
+
+        protected virtual Transaction? CheckWithdrawalLimit(bool isOverdrawn)
+        {
+            if (isOverdrawn)
+            {
+                throw new InvalidOperationException("Sem saldo suficiente para saque");
+            }
+            else
+            {
+                return default;
+            }
         }
 
 

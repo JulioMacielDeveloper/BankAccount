@@ -87,7 +87,7 @@ namespace classes
 
             Console.WriteLine("Transações da conta de Linha de Crédito");
 
-            var lineofCredit = new LineOfCreditAccount("Linha de crédito", 0);
+            var lineofCredit = new LineOfCreditAccount("Linha de crédito", 50000, 2000);
             // Quanto é muito para pedir emprestado?
             lineofCredit.MakeWithdrawal(1000m, DateTime.Now, "Retirar adiantamento mensal");
             lineofCredit.MakeDeposit(50m, DateTime.Now, "Pague uma pequena quantia");
@@ -95,6 +95,12 @@ namespace classes
             lineofCredit.MakeDeposit(150m, DateTime.Now, "Restauração parcial dos reparos");
             lineofCredit.PerformMonthEndTransactions();
             Console.WriteLine(lineofCredit.GetAccountHistory());
+
+
+            Console.ReadKey();
+
+
+
         }
 
 
