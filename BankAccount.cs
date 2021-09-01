@@ -67,7 +67,7 @@ namespace BankTransactions
         // Regra para o valor de saque ser positivo
         public void MakeWithdrawal(decimal amount, DateTime date, string note)
         {
-            if (amount <= 0)
+            if (Balance - amount < minimumBalance)
             {
                 throw new ArgumentOutOfRangeException(nameof(amount), "O valor da retirada deve ser positivo");
             }
